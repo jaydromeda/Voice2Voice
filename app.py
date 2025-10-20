@@ -1,6 +1,9 @@
 import gradio as gr
 import whisper
 from deep_translator import GoogleTranslator
+from io import BytesIO
+from gtts import gTTS
+import tempfile
 # Load Whisper model (choose "tiny", "base", "small", "medium", "large")
 
 model = whisper.load_model("base")
@@ -68,15 +71,25 @@ openai_google_langs = {
 
 
 
-
 def transcribe(audio):
-    # Whisper expects a filepath, Gradio provides a tuple (sr, data)
     audio_path = audio
     result = model.transcribe(audio_path)
     return result["text"]
 
 def translate_text(text, src_lang, target_lang):
     return GoogleTranslator(source=openai_google_langs.get(src_lang), target=openai_google_langs.get(target_lang)).translate(text)
+
+def generate_speech(translated_text, target_lang):
+    if not translated_text:
+        return None
+
+    lang_code = openai_google_langs.get(target_lang, "en")  # Default to English
+    tts = gTTS(translated_text, lang=lang_code)
+
+    import tempfile
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmpfile:
+        tts.save(tmpfile.name)
+        return tmpfile.name
 
 with gr.Blocks() as demo:
     gr.Markdown("# Speech-to-Speech Translator")
@@ -99,8 +112,13 @@ with gr.Blocks() as demo:
             output_text = gr.Textbox(label="Transcription")
         with gr.Column():
             translation_text = gr.Textbox(label="Translation")
+        with gr.Column():
+            speech = gr.Audio(label="Generated Speech")
 
     btn.click(fn=transcribe, inputs=audio_input, outputs=output_text)
     btn2.click(fn=translate_text, inputs=[output_text, src_lang, target_lang], outputs= translation_text)
+
+    btn3 = gr.Button("Generate Speech")
+    btn3.click(fn=generate_speech, inputs=[translation_text, target_lang], outputs=speech)
 
 demo.launch()
