@@ -1,3 +1,12 @@
+# Run RVC API and Translator App Concurrently
+Create virtual environment for RVC Folder and install requirements
+
+Create virtual environment for Translator Folder and install requirements
+
+run python api_240604.py
+
+run python app.py
+
 # Need to download and install hubert_base.pt
 Download at:
 https://huggingface.co/lj1995/VoiceConversionWebUI/blob/main/hubert_base.pt
