@@ -1,0 +1,73 @@
+# ============================
+# Python & Virtual Environment
+# ============================
+venv/
+.env/
+.venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# ============================
+# IDE / Editor Files
+# ============================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# ============================
+# OS Generated Files
+# ============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================
+# Logs / Temporary Files
+# ============================
+*.log
+*.tmp
+*.temp
+*.cache/
+logs/
+cache/
+pip-wheel-metadata/
+*.sqlite3
+
+# ============================
+# Project-specific
+# ============================
+# Audio files or large test samples
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+
+# Translated or generated outputs
+output/
+recordings/
+translations/
+generated_audio/
+
+# ============================
+# Jupyter / Notebooks (if used)
+# ============================
+.ipynb_checkpoints/
+*.ipynb_out/
+
+# ============================
+# Node / Web (if you use Gradio + web assets)
+# ============================
+node_modules/
+dist/
+build/

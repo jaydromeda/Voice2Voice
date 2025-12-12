@@ -1,0 +1,4 @@
+﻿venv/
+*.pth
+*.index
+hubert_base.pt
